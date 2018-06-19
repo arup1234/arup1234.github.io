@@ -266,13 +266,11 @@ else if(!$scope.nameValidationError && !$scope.userNameValidationError){
 }
 
 function settingsSaved(response){
-    console.log("return of rpc call: " + response);
         if(response!=null){
             var txnHash = response.txhash;
             executeTxn = $interval(function() {
             settingsFuncCalled++;
             neb.api.getTransactionReceipt({hash: txnHash}).then(function(receipt) {
-            console.log(receipt);
 
             if(receipt.status==0){
                 settingsFuncCalled = 0;
@@ -360,13 +358,11 @@ $scope.postComment = function(index, author, date){
 }
 
 function addComment(response){
-    console.log("return of rpc call: " + response);
         if(response!=null){
             var txnHash = response.txhash;
             executeTxn = $interval(function() {
             commentFuncCalled++;
             neb.api.getTransactionReceipt({hash: txnHash}).then(function(receipt) {
-            console.log(receipt);
 
             if(receipt.status==0){
                 commentFuncCalled = 0;
@@ -626,13 +622,11 @@ function authenticate(response){
 }
 
 function blockchainSignUp(response) {
-        console.log("return of rpc call: " + response);
         if(response!=null){
             var txnHash = response.txhash;
             executeTxn = $interval(function() {
             signUpFuncCalled++;
             neb.api.getTransactionReceipt({hash: txnHash}).then(function(receipt) {
-            console.log(receipt);
 
             if(receipt.status==0){
                 signUpFuncCalled = 0;
@@ -685,7 +679,6 @@ else{
 $scope.authenticateSettingsError = true;
 
 function authSettings(response){
-    console.log("response is "+response);
     if(response.execute_err!=""){
         $scope.settingsAuthenticationError = response.result;
     }else{
@@ -716,7 +709,6 @@ else{
 //response from RPC call when trying to log in,
     function blockchainSignIn(response) {
         var result = response.result;
-        console.log("return of rpc call: " + JSON.stringify(result));
 
         if (result === 'null'){
             $scope.loginError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
@@ -778,7 +770,6 @@ else{
     }
 
     $scope.updateFeed = function(userName, follows){
-        console.log("" + follows);
         var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + follows + "\"]"; 
         nebPay.simulateCall(dappAddress, "0", "updateFeed", callArgs, {    
             listener: feed      
@@ -788,7 +779,6 @@ else{
 
     function feed(response){
         var result = response.result;
-        console.log("return of rpc call: " + JSON.stringify(result));
 
         if (result === 'null'){
             console.log("Sorry, we couldn't get a response from Blockchain. Please try again after some time.");
@@ -847,7 +837,6 @@ else{
 
     function updateNotifications(response){
         var result = response.result;
-        console.log("return of rpc call: " + JSON.stringify(result));
 
         if (result === 'null'){
             console.log("Sorry, we couldn't get a response from Blockchain. Please try again after some time.");
@@ -876,13 +865,11 @@ else{
     }
 
     function blockchainBlog(response){
-        console.log("return of rpc call: " + response);
         if(response!=null){
             var txnHash = response.txhash;
             executeTxn = $interval(function() {
             blogFuncCalled++;
             neb.api.getTransactionReceipt({hash: txnHash}).then(function(receipt) {
-            console.log(receipt);
 
             if(receipt.status==0){
                 blogFuncCalled = 0;
@@ -927,13 +914,11 @@ else{
     }
 
     function deletion(response){
-        console.log("response is" + response);
         if(response!=null){
             var txnHash = response.txhash;
             executeTxn = $interval(function() {
             deleteFuncCalled++;
             neb.api.getTransactionReceipt({hash: txnHash}).then(function(receipt) {
-            console.log(receipt);
 
             if(receipt.status==0){
                 deleteFuncCalled = 0;
@@ -973,9 +958,7 @@ $scope.profilePage =function(){
 }    
 
 function userProfile(response){
-    console.log("response is" + response);
     var result = response.result;
-        console.log("return of rpc call: " + JSON.stringify(result));
 
         if (result === 'null'){
             $scope.retrievingProfileError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
@@ -1033,9 +1016,7 @@ $scope.visitUserProfile =function(user, isfollowing){
 }    
 
 function visitProfile(response){
-    console.log("response is" + response);
     var result = response.result;
-        console.log("return of rpc call: " + JSON.stringify(result));
 
         if (result === 'null'){
             $scope.retrievingProfileError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
@@ -1073,13 +1054,11 @@ $scope.followUser = function(toFollow, index){
 }
 
 function followProcess(response){
-    console.log("response is" + response);
         if(response!=null){
             var txnHash = response.txhash;
             executeTxn = $interval(function() {
             followFuncCalled++;
             neb.api.getTransactionReceipt({hash: txnHash}).then(function(receipt) {
-            console.log(receipt);
 
             if(receipt.status==0){
                 followFuncCalled = 0;
@@ -1132,13 +1111,11 @@ $scope.unfollowUser = function(toUnfollow, index){
 }
 
 function unfollowProcess(response){
-    console.log("response is" + response);
         if(response!=null){
             var txnHash = response.txhash;
             executeTxn = $interval(function() {
             unfollowFuncCalled++;
             neb.api.getTransactionReceipt({hash: txnHash}).then(function(receipt) {
-            console.log(receipt);
 
             if(receipt.status==0){
                 unfollowFuncCalled = 0;
@@ -1195,12 +1172,10 @@ $scope.homePage = function(){
 }
 
 function retrieveUserData(response){
-    console.log("return of rpc call: " + response);
     if(response.execute_err!=""){
         $scope.searchUsersError = response.execute_err;
     }
     var result = response.result;
-        console.log("return of rpc call: " + JSON.stringify(result));
 
         if (result === 'null'){
             $scope.searchUsersError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
