@@ -22,14 +22,14 @@
             <div id="blcDiary" class="fc-white name col-lg-8 col-md-8 col-sm-8 col-xs-8">BLOCKCHAIN DIARY</div>
         </div></div>
         <div ng-if="noWebExtension && ($state.current.name=='home' || $state.current.name=='prelogin')" class="noExtensionWarning">
-            NOTE: You have to install <a target="_blank" href="https://github.com/ChengOrangeJu/WebExtensionWallet">WebExtensionWallet</a>  to use BLOCKCHAIN DIARY
+            NOTE: You have to install <a target="_blank" href="https://chrome.google.com/webstore/detail/nasextwallet/gehjkhmhclgnkkhpfamakecfgakkfkco">WebExtensionWallet</a>  to use BLOCKCHAIN DIARY
         </div>
         <div class="search alignCenter">
         <div ng-if="$state.current.name=='home'">
         <div class="mt30 lh_change">
             <h2>Sign up by entering your details below to blog on Blockchain</h2>
             <h3>Please click on the info icons below to understand the requirements of these fields</h3>
-            <h4 style="color:red; font-weight:bold;" ng-if="signUpError">{{signUpError}}</h4>
+            <h4 style="color:red;" ng-if="signUpError">{{signUpError}}</h4>
             <h4 ng-if="signUpTakingForever && $state.current.name=='home'" style="color:darkorange;">{{signUpStatus}}</h4>
             <h4 ng-if="signUpFailed && $state.current.name=='home'" style="color:red; font-weight:bold;">{{signUpStatus}}</h4>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
