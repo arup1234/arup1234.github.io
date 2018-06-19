@@ -149,13 +149,13 @@ var app = angular.module('app', ['ui.router']);
         var HttpRequest = require("nebulas").HttpRequest;
         var Neb = require("nebulas").Neb;
         var neb = new Neb();
-        neb.setRequest(new HttpRequest("https://testnet.nebulas.io"));
+        neb.setRequest(new HttpRequest("https://mainnet.nebulas.io"));
 
         if(typeof(webExtensionWallet) === "undefined"){
             $scope.noWebExtension = true;
         }
 
-        var dappAddress = "n1zangG7nEHcg1e1DDpdxtDNNd84hKPoZHV";
+        var dappAddress = "n1gPwkx7jx3JZ6T9HKcsg8hseN6tVRtvfg7";
 
         $scope.loginPage=false;
         $scope.passMatch=true;
@@ -589,11 +589,7 @@ if(!angular.isDefined(retypePassword) || retypePassword==''){
 }
 }
 else if(!$scope.nameValidationError && !$scope.passValidationError && !$scope.userNameValidationError && $scope.passMatch){
-        $scope.usernameOfUser = userName;
-        $scope.nameOfUser = name;
-        $scope.authenticatingPinOfUser = authenticatingPin;
-        $scope.passwordOfUser = password;
-        var callArgs = "[\"" + name + "\", \"" + userName + "\", \"" + authenticatingPin + "\", \"" + password + "\"]";
+        var callArgs = "[\"" + userName + "\"]";
 
         nebPay.simulateCall(dappAddress, "0", "authenticateSignUp", callArgs, { 
             listener: authenticate
