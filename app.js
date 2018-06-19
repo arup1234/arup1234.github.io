@@ -946,6 +946,7 @@ else{
                 deleteFuncCalled = 0;
                 $scope.deleteSuccess = true;
                 $scope.deleteStatus = "Your selected blog has been deleted successfully."
+                $scope.blogSuccess = false;
                 $interval.cancel(executeTxn);
                 $scope.profilePage();
                 $scope.$apply();
