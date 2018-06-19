@@ -589,6 +589,10 @@ if(!angular.isDefined(retypePassword) || retypePassword==''){
 }
 }
 else if(!$scope.nameValidationError && !$scope.passValidationError && !$scope.userNameValidationError && $scope.passMatch){
+        $scope.usernameOfUser = userName;
+        $scope.nameOfUser = name;
+        $scope.authenticatingPinOfUser = authenticatingPin;
+        $scope.passwordOfUser = password;
         var callArgs = "[\"" + userName + "\"]";
 
         nebPay.simulateCall(dappAddress, "0", "authenticateSignUp", callArgs, { 
