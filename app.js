@@ -827,7 +827,7 @@ else{
 
             /*Check for notifications*/
             notifCheck = $interval(function() {
-            if($scope.state.current.name=='prelogin' || $scope.state.current.name=='home'){
+            if(angular.isDefined($scope.state) && $scope.state.current.name=='prelogin' || $scope.state.current.name=='home'){
             if(angular.isDefined(notifCheck)){
             $interval.cancel(notifCheck);
             }
@@ -1098,7 +1098,9 @@ function followProcess(response){
                 }
                 $scope.isfollowing = true;
                 sessionStorage.setItem("isfollowing", $scope.isfollowing);
+                if(angular.isDefined($scope.otherUserProfile)){
                 $scope.otherUserProfile.numberOfFollowers++;
+                }
                 sessionStorage.setItem("otherUserProfile", JSON.stringify($scope.otherUserProfile));
                 $scope.userCredentials.follows.push($scope.toFollow);
                 sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
@@ -1155,7 +1157,9 @@ function unfollowProcess(response){
                 }
                 $scope.isfollowing = false;
                 sessionStorage.setItem("isfollowing", $scope.isfollowing);
+                if(angular.isDefined($scope.otherUserProfile)){
                 $scope.otherUserProfile.numberOfFollowers--;
+                }
                 sessionStorage.setItem("otherUserProfile", JSON.stringify($scope.otherUserProfile));
                 $scope.userCredentials.follows.splice($scope.userCredentials.follows.indexOf($scope.toUnfollow),1);
                 sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
