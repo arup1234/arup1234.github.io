@@ -1001,7 +1001,9 @@ $scope.profilePage =function(){
     $scope.deleteSuccess = false;
     $scope.blogSuccess = false;
     $scope.commentSuccess = false;
+    if(!$scope.settingsSuccess){
         $scope.settingsPage = false;
+    }
         var callArgs = "[\"" + $scope.userCredentials.userName + "\"]";   
         nebPay.simulateCall(dappAddress, "0", "getUserProfile", callArgs, { 
             listener: userProfile
@@ -1039,6 +1041,7 @@ function userProfile(response){
                 
             } else {        //"error message"
                 $scope.retrievingProfileError = result;
+                console.log($scope.retrievingProfileError);
             }
 
         }
