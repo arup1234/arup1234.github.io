@@ -601,7 +601,7 @@ function authenticate(response){
     if(response==null){
         $scope.signUpError = "Sorry we couldn't get a response from Blockchain.";
     }
-    else if(response.execute_err=''){
+    else if(response.execute_err!=""){
         $scope.signUpError = response.result;
         delete $scope.nameOfUser;
         delete $scope.usernameOfUser;
@@ -1183,7 +1183,7 @@ function retrieveUserData(response){
         $scope.searchUsersError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time."
     }
     else if(response.execute_err!=""){
-        $scope.searchUsersError = response.execute_err;
+        $scope.searchUsersError = response.result;
     }
     var result = response.result;
 
