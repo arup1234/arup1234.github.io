@@ -712,6 +712,10 @@ else{
 }
 }
 
+if($scope.state.current.name!="prelogin"){
+    $scope.signUpSuccess = false;
+}
+
 //response from RPC call when trying to log in,
     function blockchainSignIn(response) {
         var result = response.result;
