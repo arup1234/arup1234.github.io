@@ -256,13 +256,40 @@ if(!angular.isDefined(document.getElementById('blockchainWallet_id').value) || d
 }
 }
 else if(!$scope.nameValidationError && !$scope.userNameValidationError){
-    var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + document.getElementById('user_name').value + 
-    "\", \"" + document.getElementById('full_name').value + "\", \"" + document.getElementById('blockchainWallet_id').value + "\"]";
+        $scope.settingsUserName = document.getElementById('user_name').value;
+        $scope.nameSettings = document.getElementById('full_name').value;
+        $scope.walletSettings = document.getElementById('blockchainWallet_id').value;
+        var callArgs = "[\"" + $scope.settingsUserName + "\"]";
+
+        nebPay.simulateCall(dappAddress, "0", "authenticateSignUp", callArgs, { 
+            listener: settingsAuthenticate
+        });
+    }
+}
+
+function settingsAuthenticate(response){
+    if(response==null){
+        $scope.settingsStatus = "Sorry we couldn't get a response from Blockchain.";
+    }
+    else if(response.execute_err!=""){
+        $scope.settingsStatus = response.result;
+        delete $scope.settingsUserName;
+        delete $scope.nameSettings;
+        delete $scope.walletSettings;
+    }
+    else{
+        var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + $scope.settingsUserName + 
+    "\", \"" + $scope.nameSettings + "\", \"" + $scope.walletSettings + "\"]";
+
+        delete $scope.settingsUserName;
+        delete $scope.nameSettings;
+        delete $scope.walletSettings;
 
         nebPay.call(dappAddress, "0", "editSettings", callArgs, { 
             listener: settingsSaved
         });
     }
+    $scope.$apply();
 }
 
 function settingsSaved(response){
@@ -606,7 +633,6 @@ function authenticate(response){
         delete $scope.usernameOfUser;
         delete $scope.authenticatingPinOfUser;
         delete $scope.passwordOfUser;
-        $scope.$apply();
     }
     else{
         var callArgs = "[\"" + $scope.nameOfUser + "\", \"" + $scope.usernameOfUser + "\", \"" + $scope.authenticatingPinOfUser + "\", \"" + $scope.passwordOfUser + 
@@ -621,6 +647,7 @@ function authenticate(response){
             listener: blockchainSignUp
         });
     }
+    $scope.$apply();
 }
 
 function blockchainSignUp(response) {
