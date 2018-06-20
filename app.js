@@ -989,12 +989,12 @@ function userProfile(response){
                 deleteParams.deleteStatus = $scope.deleteStatus;
                 if($scope.state.current.name!="profile"){
                 $state.go('profile', {deleteVariables:deleteParams, userCreds: $scope.userCredentials});
-                if($scope.settingsSuccess){
-                    $scope.settings();
-                }
             }
             $scope.userCredentials = result;
             sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
+            if($scope.settingsSuccess){
+                    $scope.settings();
+                }
                 
             } else {        //"error message"
                 $scope.retrievingProfileError = result;
