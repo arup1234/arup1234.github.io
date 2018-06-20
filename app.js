@@ -958,6 +958,9 @@ else{
     }
 
 $scope.profilePage =function(){
+    $scope.deleteSuccess = false;
+    $scope.blogSuccess = false;
+    $scope.commentSuccess = false;
         $scope.settingsPage = false;
         var callArgs = "[\"" + $scope.userCredentials.userName + "\"]";   
         nebPay.simulateCall(dappAddress, "0", "getUserProfile", callArgs, { 
@@ -985,7 +988,7 @@ function userProfile(response){
                 var deleteParams = [];
                 deleteParams.deleteSuccess = $scope.deleteSuccess;
                 deleteParams.deleteStatus = $scope.deleteStatus;
-                if(($scope.state.current.name!="profile") || ($scope.state.current.name=="profile" && $scope.blogSuccess)){
+                if(($scope.state.current.name!="profile") || ($scope.state.current.name=="profile" && ($scope.blogSuccess || $scope.deleteSuccess))){
                 $state.go('profile', {deleteVariables:deleteParams, userCreds: $scope.userCredentials});
             }
             $scope.userCredentials = result;
