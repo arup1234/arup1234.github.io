@@ -155,7 +155,7 @@ var app = angular.module('app', ['ui.router']);
             $scope.noWebExtension = true;
         }
 
-        var dappAddress = "n1qub6rTovYB261fpYgrbPTz86EXsZ1Sdpn";
+        var dappAddress = "n1iYoXvNEwTj5mzrYApPGZgnLePL7nENn6k";
 
         $scope.loginPage=false;
         $scope.passMatch=true;
