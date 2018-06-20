@@ -259,6 +259,12 @@ else if(!$scope.nameValidationError && !$scope.userNameValidationError){
         $scope.settingsUserName = document.getElementById('user_name').value;
         $scope.nameSettings = document.getElementById('full_name').value;
         $scope.walletSettings = document.getElementById('blockchainWallet_id').value;
+        if($scope.settingsUserName.trim()==$scope.userCredentials.userName && 
+            $scope.nameSettings.trim()==$scope.userCredentials.fullName &&
+            $scope.walletSettings.trim()==$scope.userCredentials.blockchainWallet){
+            $scope.settingsFailure = true;
+            $scope.settingsStatus = "All the values are same as before.";
+        }else{
         if($scope.settingsUserName.trim()!=$scope.userCredentials.userName){
         var callArgs = "[\"" + $scope.settingsUserName + "\"]";
 
@@ -278,6 +284,7 @@ else if(!$scope.nameValidationError && !$scope.userNameValidationError){
         });
         }
     }
+}
 }
 
 function settingsAuthenticate(response){
