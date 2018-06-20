@@ -808,7 +808,6 @@ else{
             $scope.blogListForFeed = JSON.parse(sessionStorage.getItem("feedList"));
             $scope.updateFound = false;
             }
-            $scope.checkForNotifications();
             }catch (err){
                 console.log(err);
             }
@@ -817,7 +816,7 @@ else{
     }
 
             /*Check for notifications*/
-            notifCheck = $interval(function() {
+            /*notifCheck = $interval(function() {
             if(angular.isDefined($scope.state) && $scope.state.current.name=='prelogin' || $scope.state.current.name=='home'){
             if(angular.isDefined(notifCheck)){
             $interval.cancel(notifCheck);
@@ -825,18 +824,18 @@ else{
             }else{
             $scope.checkForNotifications();
             }
-        }, 60000);
+        }, 60000);*/
 
-    $scope.checkForNotifications = function(){
+    /*$scope.checkForNotifications = function(){
         if(angular.isDefined($scope.userCredentials)){
         var callArgs = "[\"" + $scope.userCredentials.userName + "\"]"; 
         nebPay.simulateCall(dappAddress, "0", "getNotifications", callArgs, {    
             listener: updateNotifications      
         });
     }
-    }
+    }*/
 
-    function updateNotifications(response){
+    /*function updateNotifications(response){
         var result = response.result;
 
         if (result === 'null'){
@@ -853,7 +852,7 @@ else{
             }
         }
         $scope.$apply();
-    } 
+    } */
 
     $scope.blog=function(blogInput){
         if(angular.isDefined(blogInput) && blogInput!=''){
@@ -978,7 +977,7 @@ function userProfile(response){
                 var deleteParams = [];
                 deleteParams.deleteSuccess = $scope.deleteSuccess;
                 deleteParams.deleteStatus = $scope.deleteStatus;
-                if(($scope.state.current.name!="profile") || ($scope.state.current.name=="profile" && ($scope.blogSuccess || $scope.settingsSuccess))){
+                if(($scope.state.current.name!="profile") || ($scope.state.current.name=="profile" && $scope.blogSuccess)){
                 $state.go('profile', {deleteVariables:deleteParams, userCreds: $scope.userCredentials});
             }
             $scope.userCredentials = result;
