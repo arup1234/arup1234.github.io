@@ -232,6 +232,7 @@ $scope.editSettings = function(){
 }
 
 $scope.saveSettings = function(){
+$scope.settingsFailure = false;
 if(angular.isDefined($("#nameValidError")[0])){
     $scope.nameValidationError=true;
 }
