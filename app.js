@@ -282,7 +282,7 @@ function settingsSaved(response){
                 $scope.settingsSuccess = true;
                 $scope.settingsStatus = "Your settings have been successfully saved.";
                 $interval.cancel(executeTxn);
-                //$scope.profilePage();
+                $scope.profilePage();
                 $scope.settings();
                 $scope.$apply();
             }
@@ -973,10 +973,11 @@ function userProfile(response){
                 var deleteParams = [];
                 deleteParams.deleteSuccess = $scope.deleteSuccess;
                 deleteParams.deleteStatus = $scope.deleteStatus;
-                if(($scope.state.current.name!="profile") || ($scope.state.current.name=="profile" && $scope.blogSuccess)){
+                if(($scope.state.current.name!="profile") || ($scope.state.current.name=="profile" && ($scope.blogSuccess || $scope.settingsSuccess))){
                 $state.go('profile', {deleteVariables:deleteParams, userCreds: $scope.userCredentials});
             }
             $scope.userCredentials = result;
+            sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
                 
             } else {        //"error message"
                 $scope.retrievingProfileError = result;
