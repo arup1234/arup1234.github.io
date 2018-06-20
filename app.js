@@ -761,6 +761,7 @@ else{
     }
 
     $scope.notifications = function(){
+        $scope.checkForNotifications();
         $state.go('notifications', {userCreds: $scope.userCredentials});
     }
 
@@ -832,16 +833,16 @@ else{
             }
         }, 60000);*/
 
-    /*$scope.checkForNotifications = function(){
+    $scope.checkForNotifications = function(){
         if(angular.isDefined($scope.userCredentials)){
         var callArgs = "[\"" + $scope.userCredentials.userName + "\"]"; 
         nebPay.simulateCall(dappAddress, "0", "getNotifications", callArgs, {    
             listener: updateNotifications      
         });
     }
-    }*/
+    }
 
-    /*function updateNotifications(response){
+    function updateNotifications(response){
         var result = response.result;
 
         if (result === 'null'){
@@ -858,7 +859,7 @@ else{
             }
         }
         $scope.$apply();
-    } */
+    } 
 
     $scope.blog=function(blogInput){
         if(angular.isDefined(blogInput) && blogInput!=''){
