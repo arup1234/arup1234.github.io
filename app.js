@@ -487,9 +487,8 @@ $scope.updateAuthenticatingPin = function(authenticatingPin){
     }
 }
 
-$scope.updateBlockchainWallet = function(){
-    if(angular.isDefined(document.getElementById('blockchainWallet_id').value) && 
-            document.getElementById('blockchainWallet_id').value!=''){
+$scope.updateBlockchainWallet = function(walletAddress){
+    if(angular.isDefined(walletAddress) && walletAddress != ''){
         $scope.blockchainWalletLeftEmpty = false;
         $("#blockchainWallet_id").addClass("mb30");
     }
@@ -804,8 +803,9 @@ else{
                 }
             }
             sessionStorage.setItem("feedList", JSON.stringify(blogListForFeed));
-            if(angular.isDefined(blogListForFeed) && blogListForFeed.length>0 && !$scope.updateFound){
+            if((angular.isDefined(blogListForFeed) && blogListForFeed.length>0) && (!$scope.updateFound || $scope.commentAdded)){
             $scope.blogListForFeed = JSON.parse(sessionStorage.getItem("feedList"));
+            $scope.updateFound = false;
             }
             $scope.checkForNotifications();
             }catch (err){
