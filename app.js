@@ -598,7 +598,10 @@ else if(!$scope.nameValidationError && !$scope.passValidationError && !$scope.us
 }
 
 function authenticate(response){
-    if(response.execute_err!='' && response.execute_err!=null){
+    if(response==null){
+        $scope.signUpError = "Sorry we couldn't get a response from Blockchain.";
+    }
+    else if(response.execute_err=''){
         $scope.signUpError = response.result;
         delete $scope.nameOfUser;
         delete $scope.usernameOfUser;
@@ -679,7 +682,10 @@ else{
 $scope.authenticateSettingsError = true;
 
 function authSettings(response){
-    if(response.execute_err!=""){
+    if(response==null){
+        $scope.settingsAuthenticationError = "Sorry, we couldn't get a response from Blockchain."
+    }
+    else if(response.execute_err!=""){
         $scope.settingsAuthenticationError = response.result;
     }else{
         $scope.authenticateSettingsError = false;
@@ -1173,7 +1179,10 @@ $scope.homePage = function(){
 }
 
 function retrieveUserData(response){
-    if(response.execute_err!=""){
+    if(response==null){
+        $scope.searchUsersError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time."
+    }
+    else if(response.execute_err!=""){
         $scope.searchUsersError = response.execute_err;
     }
     var result = response.result;
