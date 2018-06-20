@@ -231,33 +231,31 @@ $scope.editSettings = function(){
     $scope.askForAuthentication = true;
 }
 
-$scope.saveSettings = function(){
+$scope.saveSettings = function(fullName, userName, walletAddress){
 if(angular.isDefined($("#nameValidError")[0])){
     $scope.nameValidationError=true;
 }
 if(angular.isDefined($("#userNameValidError")[0])){
     $scope.userNameValidationError=true;
 }
-if(!angular.isDefined(document.getElementById('full_name').value) || !angular.isDefined(document.getElementById('user_name').value) || 
-    !angular.isDefined(document.getElementById('blockchainWallet_id').value)
-    || document.getElementById('full_name').value=='' || document.getElementById('user_name').value=='' || 
-    document.getElementById('blockchainWallet_id').value==''){    
-if(!angular.isDefined(document.getElementById('full_name').value) || document.getElementById('full_name').value==''){
+if(!angular.isDefined(fullName) || !angular.isDefined(userName) || !angular.isDefined(walletAddress)
+    || fullName=='' || userName=='' || walletAddress==''){    
+if(!angular.isDefined(fullName) || fullName==''){
     $scope.nameLeftEmpty = true;
     $("#full_name").removeClass("mb30");
 }
-if(!angular.isDefined(document.getElementById('user_name').value) || document.getElementById('user_name').value==''){
+if(!angular.isDefined(userName) || userName==''){
     $scope.userNameLeftEmpty = true;
     $("#user_name").removeClass("mb30");
 }
-if(!angular.isDefined(document.getElementById('blockchainWallet_id').value) || document.getElementById('blockchainWallet_id').value==''){
+if(!angular.isDefined(walletAddress) || walletAddress==''){
     $scope.blockchainWalletLeftEmpty = true;
     $("#blockchainWallet_id").removeClass("mb30");
 }
 }
 else if(!$scope.nameValidationError && !$scope.userNameValidationError){
-    var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + document.getElementById('user_name').value + 
-    "\", \"" + document.getElementById('full_name').value + "\", \"" + document.getElementById('blockchainWallet_id').value + "\"]";
+    var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + userName + 
+    "\", \"" + fullName + "\", \"" + walletAddress + "\"]";
 
         nebPay.call(dappAddress, "0", "editSettings", callArgs, { 
             listener: settingsSaved
@@ -459,8 +457,7 @@ $scope.comparePasswords = function(pass1, pass2){
     }
 }
 $scope.updateName = function(name){
-    if((angular.isDefined(name) && name!='') || (angular.isDefined(document.getElementById('full_name').value) && 
-        document.getElementById('full_name').value!='')){
+    if((angular.isDefined(name) && name!='')){
         $scope.nameLeftEmpty = false;
         $("#full_name").addClass("mb30");
     }
@@ -470,8 +467,7 @@ $scope.updateName = function(name){
 }
 
 $scope.updateUserName = function(userName){
-    if((angular.isDefined(userName) && userName!='') || (angular.isDefined(document.getElementById('user_name').value) && 
-        document.getElementById('user_name').value!='')){
+    if((angular.isDefined(userName) && userName!='')){
         $scope.userNameLeftEmpty = false;
         $("#user_name").addClass("mb30");
     }
