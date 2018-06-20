@@ -259,11 +259,24 @@ else if(!$scope.nameValidationError && !$scope.userNameValidationError){
         $scope.settingsUserName = document.getElementById('user_name').value;
         $scope.nameSettings = document.getElementById('full_name').value;
         $scope.walletSettings = document.getElementById('blockchainWallet_id').value;
+        if(settingsUserName.trim()!=$scope.userCredentials.userName){
         var callArgs = "[\"" + $scope.settingsUserName + "\"]";
 
         nebPay.simulateCall(dappAddress, "0", "authenticateSignUp", callArgs, { 
             listener: settingsAuthenticate
         });
+        }else{
+            var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + $scope.settingsUserName + 
+    "\", \"" + $scope.nameSettings + "\", \"" + $scope.walletSettings + "\"]";
+
+        delete $scope.settingsUserName;
+        delete $scope.nameSettings;
+        delete $scope.walletSettings;
+
+        nebPay.call(dappAddress, "0", "editSettings", callArgs, { 
+            listener: settingsSaved
+        });
+        }
     }
 }
 
@@ -272,6 +285,7 @@ function settingsAuthenticate(response){
         $scope.settingsStatus = "Sorry we couldn't get a response from Blockchain.";
     }
     else if(response.execute_err!=""){
+        $scope.settingsFailure = true;
         $scope.settingsStatus = response.result;
         delete $scope.settingsUserName;
         delete $scope.nameSettings;
