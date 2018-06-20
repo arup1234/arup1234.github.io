@@ -259,7 +259,7 @@ else if(!$scope.nameValidationError && !$scope.userNameValidationError){
         $scope.settingsUserName = document.getElementById('user_name').value;
         $scope.nameSettings = document.getElementById('full_name').value;
         $scope.walletSettings = document.getElementById('blockchainWallet_id').value;
-        if(settingsUserName.trim()!=$scope.userCredentials.userName){
+        if($scope.settingsUserName.trim()!=$scope.userCredentials.userName){
         var callArgs = "[\"" + $scope.settingsUserName + "\"]";
 
         nebPay.simulateCall(dappAddress, "0", "authenticateSignUp", callArgs, { 
