@@ -815,6 +815,7 @@ else{
             $scope.blogListForFeed = JSON.parse(sessionStorage.getItem("feedList"));
             $scope.updateFound = false;
             }
+            $scope.checkForNotifications();
             }catch (err){
                 console.log(err);
             }
