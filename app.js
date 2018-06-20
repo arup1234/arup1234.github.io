@@ -712,10 +712,6 @@ else{
 }
 }
 
-if($scope.state.current.name!="prelogin"){
-    $scope.signUpSuccess = false;
-}
-
 //response from RPC call when trying to log in,
     function blockchainSignIn(response) {
         var result = response.result;
@@ -733,7 +729,7 @@ if($scope.state.current.name!="prelogin"){
                 $scope.userCredentials=result;
                 $scope.loginError = false;
                 $scope.signUpSuccess = false;
-                $scope.signUpStatus = false;
+                $scope.$parent.$parent.signUpSuccess = false;
                 $scope.updateFeed($scope.userCredentials.userName , $scope.userCredentials.follows);
                 
             } else {        //"error message"
