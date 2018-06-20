@@ -285,7 +285,6 @@ function settingsSaved(response){
                 $scope.settingsStatus = "Your settings have been successfully saved.";
                 $interval.cancel(executeTxn);
                 $scope.profilePage();
-                $scope.settings();
                 $scope.$apply();
             }
             else if(receipt.status==2 && settingsFuncCalled>40){
@@ -990,6 +989,9 @@ function userProfile(response){
                 deleteParams.deleteStatus = $scope.deleteStatus;
                 if($scope.state.current.name!="profile"){
                 $state.go('profile', {deleteVariables:deleteParams, userCreds: $scope.userCredentials});
+                if($scope.settingsSuccess){
+                    $scope.settings();
+                }
             }
             $scope.userCredentials = result;
             sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
