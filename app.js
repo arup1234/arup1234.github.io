@@ -829,7 +829,8 @@ else{
         var result = response.result;
 
         if (result === 'null'){
-            console.log("Sorry, we couldn't get a response from Blockchain. Please try again after some time.");
+            $scope.loginError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
+            console.log($scope.loginError);
         } else{
             try{
                 var blogListForFeed = JSON.parse(result);
@@ -937,7 +938,8 @@ else{
                     $scope.profilePage();
                 }
                 $scope.$apply();
-                window.focus();
+                windowHandle.blur();
+                setTimeout(windowHandle.focus, 0);
             }
             else if(receipt.status==2 && blogFuncCalled>40){
                 blogFuncCalled = 0;
