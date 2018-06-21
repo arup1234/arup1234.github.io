@@ -720,6 +720,7 @@ if(!angular.isDefined(pin) || pin==''){
 }
 }
 else{
+        $scope.authLoader = true;
         var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + password + "\", \"" + pin + "\"]"; 
         nebPay.simulateCall(dappAddress, "0", "authenticateSettingsCredentials", callArgs, {    
             listener: authSettings      
@@ -731,13 +732,14 @@ $scope.authenticateSettingsError = true;
 
 function authSettings(response){
     if(response==null){
-        $scope.settingsAuthenticationError = "Sorry, we couldn't get a response from Blockchain."
+        $scope.settingsAuthenticationError = "Sorry, we couldn't get a response from Blockchain.";
     }
     else if(response.execute_err!=""){
         $scope.settingsAuthenticationError = response.result;
     }else{
         $scope.authenticateSettingsError = false;
     }
+    $scope.authLoader = false;
     $scope.$apply();
 } 
 
