@@ -999,8 +999,6 @@ else{
     }
 
 $scope.profilePage =function(){
-    $scope.deleteSuccess = false;
-    $scope.blogSuccess = false;
     $scope.commentSuccess = false;
     if(!$scope.settingsSuccess){
         $scope.settingsPage = false;
@@ -1031,7 +1029,7 @@ function userProfile(response){
                 var deleteParams = [];
                 deleteParams.deleteSuccess = $scope.deleteSuccess;
                 deleteParams.deleteStatus = $scope.deleteStatus;
-                if($scope.state.current.name!="profile"){
+                if(($scope.state.current.name!="profile") || ($scope.state.current.name=="profile" && ($scope.blogSuccess || $scope.deleteSuccess))){
                 $state.go('profile', {deleteVariables:deleteParams, userCreds: $scope.userCredentials});
                 }
             sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
