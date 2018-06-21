@@ -276,10 +276,6 @@ else if(!$scope.nameValidationError && !$scope.userNameValidationError){
             var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + $scope.settingsUserName + 
     "\", \"" + $scope.nameSettings + "\", \"" + $scope.walletSettings + "\"]";
 
-        delete $scope.settingsUserName;
-        delete $scope.nameSettings;
-        delete $scope.walletSettings;
-
         nebPay.call(dappAddress, "0", "editSettings", callArgs, { 
             listener: settingsSaved
         });
@@ -302,8 +298,6 @@ function settingsAuthenticate(response){
     else{
         var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + $scope.settingsUserName + 
     "\", \"" + $scope.nameSettings + "\", \"" + $scope.walletSettings + "\"]";
-        delete $scope.nameSettings;
-        delete $scope.walletSettings;
 
         nebPay.call(dappAddress, "0", "editSettings", callArgs, { 
             listener: settingsSaved
@@ -331,7 +325,14 @@ function settingsSaved(response){
                 $scope.settingsSuccess = true;
                 $scope.settingsStatus = "Your settings have been successfully saved.";
                 $interval.cancel(executeTxn);
-                $scope.profilePage();
+                $scope.userCredentials.userName = $scope.settingsUserName;
+                $scope.userCredentials.fullName = $scope.nameSettings;
+                $scope.userCredentials.blockchainWallet = $scope.walletSettings;
+                sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
+                delete $scope.settingsUserName;
+                delete $scope.nameSettings;
+                delete $scope.walletSettings;
+                $scope.settings();
                 $scope.$apply();
             }
             else if(receipt.status==2 && settingsFuncCalled>40){
@@ -1049,8 +1050,7 @@ function userProfile(response){
                 deleteParams.deleteStatus = $scope.deleteStatus;
                 if($scope.state.current.name!="profile"){
                 $state.go('profile', {deleteVariables:deleteParams, userCreds: $scope.userCredentials});
-            }
-            $scope.userCredentials = result;
+                }
             sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
             if($scope.settingsSuccess){
                     $scope.settings();
