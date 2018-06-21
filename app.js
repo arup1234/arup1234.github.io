@@ -338,6 +338,7 @@ function settingsSaved(response){
              }
 });
         }, 3000);
+            window.focus();
             $scope.$apply();
         }
 }
@@ -441,6 +442,7 @@ function addComment(response){
              }
 });
         }, 3000);
+            window.focus();
             $scope.$apply();
         }
 }   
@@ -699,6 +701,7 @@ function blockchainSignUp(response) {
              }
 });
         }, 3000);
+            window.focus();
             $scope.$apply();
         }
     }
@@ -947,6 +950,7 @@ else{
              }
 });
         }, 3000);
+            window.focus();
             $scope.$apply();
         }
     }
@@ -994,6 +998,7 @@ else{
              }
 });
         }, 3000);
+            window.focus();
             $scope.$apply();
         }
     }
@@ -1151,6 +1156,7 @@ function followProcess(response){
              }
 });
         }, 3000);
+            window.focus();
             $scope.$apply();
         }
 }
@@ -1208,6 +1214,7 @@ function unfollowProcess(response){
              }
 });
         }, 3000);
+            window.focus();
             $scope.$apply();
         }
 }
