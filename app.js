@@ -876,7 +876,7 @@ else{
             $scope.blogListForFeed = JSON.parse(sessionStorage.getItem("feedList"));
             $scope.updateFound = false;
             }
-            $scope.checkForNotifications();
+            //$scope.checkForNotifications();
             }catch (err){
                 $scope.loaderRunning = false;
                 $scope.homeLoader = false;
