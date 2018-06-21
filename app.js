@@ -818,7 +818,7 @@ else{
         if(logoutInitiated){
         $rootScope = $rootScope.$new(true);
         $scope = $scope.$new(true);
-        $scope.$parent.$new(true);
+        $scope.$parent = $scope.$parent.$new(true);
         sessionStorage.clear();
         $state.go('prelogin', {logoutSuccess: true});
     }
