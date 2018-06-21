@@ -291,9 +291,6 @@ function settingsAuthenticate(response){
     else if(response.execute_err!=""){
         $scope.settingsFailure = true;
         $scope.settingsStatus = response.result;
-        delete $scope.settingsUserName;
-        delete $scope.nameSettings;
-        delete $scope.walletSettings;
     }
     else{
         var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + $scope.settingsUserName + 
@@ -329,9 +326,6 @@ function settingsSaved(response){
                 $scope.userCredentials.fullName = $scope.nameSettings;
                 $scope.userCredentials.blockchainWallet = $scope.walletSettings;
                 sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
-                delete $scope.settingsUserName;
-                delete $scope.nameSettings;
-                delete $scope.walletSettings;
                 $scope.settings();
                 $scope.$apply();
             }
@@ -1011,18 +1005,7 @@ $scope.profilePage =function(){
     if(!$scope.settingsSuccess){
         $scope.settingsPage = false;
     }
-    if(angular.isDefined($scope.settingsUserName) && $scope.settingsUserName!=null){
-    if($scope.settingsUserName.trim()==$scope.userCredentials.userName){
-        var callArgs = "[\"" + $scope.userCredentials.userName + "\"]";
-    }else{
-        var callArgs = "[\"" + $scope.settingsUserName + "\"]";
-        $scope.userCredentials.userName = $scope.settingsUserName.trim();
-        delete $scope.settingsUserName;
-        sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
-    }
-    }else{
-        var callArgs = "[\"" + $scope.userCredentials.userName + "\"]";
-    }
+    var callArgs = "[\"" + $scope.userCredentials.userName + "\"]";
     nebPay.simulateCall(dappAddress, "0", "getUserProfile", callArgs, { 
         listener: userProfile
     });
