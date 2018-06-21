@@ -267,6 +267,7 @@ else if(!$scope.nameValidationError && !$scope.userNameValidationError){
             $scope.settingsStatus = "All the values are same as before.";
         }else{
         if($scope.settingsUserName.trim()!=$scope.userCredentials.userName){
+        $scope.saveSettingsLoader = true;    
         var callArgs = "[\"" + $scope.settingsUserName + "\"]";
 
         nebPay.simulateCall(dappAddress, "0", "authenticateSignUp", callArgs, { 
@@ -287,14 +288,17 @@ else if(!$scope.nameValidationError && !$scope.userNameValidationError){
 function settingsAuthenticate(response){
     if(response==null){
         $scope.settingsStatus = "Sorry we couldn't get a response from Blockchain.";
+        $scope.saveSettingsLoader = false; 
     }
     else if(response.execute_err!=""){
         $scope.settingsFailure = true;
         $scope.settingsStatus = response.result;
+        $scope.saveSettingsLoader = false;
     }
     else{
         var callArgs = "[\"" + $scope.userCredentials.userName + "\", \"" + $scope.settingsUserName + 
     "\", \"" + $scope.nameSettings + "\", \"" + $scope.walletSettings + "\"]";
+        $scope.saveSettingsLoader = false;
 
         nebPay.call(dappAddress, "0", "editSettings", callArgs, { 
             listener: settingsSaved
@@ -646,12 +650,12 @@ function authenticate(response){
     else if(response.execute_err!=""){
         $scope.signupLoader = false;
         $scope.signUpError = response.result;
-        $scope.$apply();
         document.getElementById("signUpError").scrollIntoView();
         delete $scope.nameOfUser;
         delete $scope.usernameOfUser;
         delete $scope.authenticatingPinOfUser;
         delete $scope.passwordOfUser;
+        $scope.$apply();
     }
     else{
         var callArgs = "[\"" + $scope.nameOfUser + "\", \"" + $scope.usernameOfUser + "\", \"" + $scope.authenticatingPinOfUser + "\", \"" + $scope.passwordOfUser + 
