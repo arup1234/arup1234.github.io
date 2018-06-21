@@ -197,7 +197,7 @@
             <ng-form name="fullNameForm">
             <input ng-model-options="{allowInvalid: true}" id="full_name" name="fullName" placeholder="Full Name" ng-pattern="/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u" type="text" class="col-lg-10 col-md-10 col-sm-10 col-xs-10 col-nopadding mb30 mt30" ng-value="userCredentials.fullName" ng-model="fullNameSettings" ng-change="updateName(fullNameSettings)">
             </ng-form>
-            <i class="fa fa-info-circle col-lg-1 col-md-1 col-sm-1 col-xs-1" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Please enter your full name')"></i>
+            <i class="fa fa-info-circle col-lg-1 col-md-1 col-sm-1 col-xs-1" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Please enter your full name.')"></i>
             </div>
             <div ng-if="!fullNameForm.fullName.$error.pattern" class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
             <div ng-if="fullNameForm.fullName.$error.pattern" id="nameValidError" class="mt30 mb30 alignLeft col-lg-4 col-md-4 col-sm-4 col-xs-4" style="color:red; font-weight:bold;">Name is not valid.</div>
@@ -207,7 +207,7 @@
             <ng-form name="userNameForm">
             <input ng-model-options="{allowInvalid: true}" name="userName" id="user_name" placeholder="User Name" ng-change="updateUserName(userNameSettings)" type="text" class="col-lg-10 col-md-10 col-sm-10 mb30 col-nopadding col-xs-10" ng-value="userCredentials.userName" ng-model="userNameSettings" ng-pattern="/^[a-z0-9]{4,}/">
             </ng-form>
-            <i class="fa fa-info-circle col-lg-1 col-md-1 col-sm-1 col-xs-1" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Enter a user name. This has to be unique and is tied to your blockchain wallet address')"></i>
+            <i class="fa fa-info-circle col-lg-1 col-md-1 col-sm-1 col-xs-1" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Enter a user name. This is unique and has to be alphanumeric and greater than 3 characters.')"></i>
             </div>
             <div ng-if="!userNameForm.userName.$error.pattern" class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
             <div ng-if="userNameForm.userName.$error.pattern" id="userNameValidError" class="mb30 alignLeft col-lg-4 col-md-4 col-sm-4 col-xs-4" style="color:red; font-weight:bold;">User Name is not valid.</div>
@@ -217,7 +217,7 @@
             <ng-form name="blockchainWalletForm">
             <input id="blockchainWallet_id" ng-model-options="{allowInvalid: true}" placeholder="Blockchain Wallet" ng-change="updateBlockchainWallet(blockchainWalletSettings)" type="text" class="col-nopadding col-lg-10 col-md-10 col-sm-10 col-xs-10 mb30" ng-value="userCredentials.blockchainWallet" ng-model="blockchainWalletSettings">
             </ng-form>
-            <i class="fa fa-info-circle col-lg-1 col-md-1 col-sm-1 col-xs-1" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Enter your blockchain wallet address')"></i>
+            <i class="fa fa-info-circle col-lg-1 col-md-1 col-sm-1 col-xs-1" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Enter your blockchain wallet address. This is your NAS mainnet wallet.')"></i>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
             <div ng-if="blockchainWalletLeftEmpty==true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 validationMessage">Blockchain Wallet address is required. Please enter.</div>

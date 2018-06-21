@@ -39,7 +39,7 @@
             <ng-form name="fullNameForm">
             <input ng-model-options="{allowInvalid: true}" id="full_name" name="fullName" placeholder="Full Name" ng-change="updateName(fullName)" ng-pattern="/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u" type="text" class="col-lg-11 col-md-11 col-sm-11 col-xs-11 mb30 mt30" ng-model="fullName">
             </ng-form>
-            <i class="fa fa-info-circle" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Please enter your full name')"></i>
+            <i class="fa fa-info-circle" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Please enter your full name.')"></i>
         </div>
             <div ng-if="!fullNameForm.fullName.$error.pattern" class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
             <div ng-if="fullNameForm.fullName.$error.pattern" id="nameValidError" class="mt30 mb30 alignLeft col-lg-4 col-md-4 col-sm-4 col-xs-4" style="color:red; font-weight:bold;">Name is not valid.</div>
@@ -49,7 +49,7 @@
             <ng-form name="userNameForm">
             <input ng-model-options="{allowInvalid: true}" name="userName" id="user_name" placeholder="User Name" ng-change="updateUserName(userName)" type="text" class="col-lg-11 col-md-11 col-sm-11 col-xs-11 mb30" ng-model="userName" ng-pattern="/^[a-z0-9]{4,}/">
             </ng-form>
-            <i class="fa fa-info-circle" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Enter a user name. This is unique and has to be greater than 3 characters.')"></i></div>
+            <i class="fa fa-info-circle" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Enter a user name. This is unique and has to be alphanumeric and greater than 3 characters.')"></i></div>
             <div ng-if="!userNameForm.userName.$error.pattern" class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
             <div ng-if="userNameForm.userName.$error.pattern" id="userNameValidError" class="mb30 alignLeft col-lg-4 col-md-4 col-sm-4 col-xs-4" style="color:red; font-weight:bold;">User Name is not valid.</div>
             <div ng-if="userNameLeftEmpty==true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 validationMessage">User Name is required. Please enter.</div>
@@ -58,7 +58,7 @@
             <ng-form name="authenticatingPinForm">
             <input id="authenticatingPin_id" ng-model-options="{allowInvalid: true}" placeholder="Authenticating Pin" ng-change="updateAuthenticatingPin(authenticatingPin)" type="authenticatingPin" class="col-lg-11 col-md-11 col-sm-11 col-xs-11 mb30" ng-model="authenticatingPin">
             </ng-form>
-            <i class="fa fa-info-circle" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Enter a pin. This will be required to change your settings.')"></i></div>
+            <i class="fa fa-info-circle" style="font-size:30px;color:#fff;" ng-click="displayInfoMessage('Enter a pin. This will be required to change your settings when you want to.')"></i></div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
             <div ng-if="authenticatingPinLeftEmpty==true" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 validationMessage">Authenticating Pin is required. Please enter.</div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
