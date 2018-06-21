@@ -548,7 +548,7 @@ $scope.updatePassword1 = function(Password1){
 
 $scope.updateUserNameLogin=function(userName){
     if(angular.isDefined(userName) && userName!=''){
-        $scope.userNameLeftEmpty = false;
+        $scope.userNameLoginLeftEmpty = false;
         $("#user_name_login").addClass("mb30");
     }
 }
@@ -631,6 +631,7 @@ else if(!$scope.nameValidationError && !$scope.passValidationError && !$scope.us
         $scope.authenticatingPinOfUser = authenticatingPin;
         $scope.passwordOfUser = password;
         var callArgs = "[\"" + userName + "\"]";
+        $scope.signupLoader = true;
 
         nebPay.simulateCall(dappAddress, "0", "authenticateSignUp", callArgs, { 
             listener: authenticate
@@ -643,7 +644,10 @@ function authenticate(response){
         $scope.signUpError = "Sorry we couldn't get a response from Blockchain.";
     }
     else if(response.execute_err!=""){
+        $scope.signupLoader = false;
         $scope.signUpError = response.result;
+        $scope.$apply();
+        document.getElementById("signUpError").scrollIntoView();
         delete $scope.nameOfUser;
         delete $scope.usernameOfUser;
         delete $scope.authenticatingPinOfUser;
@@ -657,6 +661,9 @@ function authenticate(response){
         delete $scope.usernameOfUser;
         delete $scope.authenticatingPinOfUser;
         delete $scope.passwordOfUser;
+
+        $scope.signupLoader = false;
+        $scope.signUpError = false;
 
         nebPay.call(dappAddress, "0", "signUp", callArgs, { 
             listener: blockchainSignUp
@@ -746,6 +753,7 @@ if(!angular.isDefined(password) || password==''){
 }
 }
 else{
+        $scope.loaderRunning = true;
         var callArgs = "[\"" + userName + "\", \"" + password + "\"]"; 
         nebPay.simulateCall(dappAddress, "0", "logIn", callArgs, {    
             listener: blockchainSignIn      
@@ -758,6 +766,7 @@ else{
         var result = response.result;
 
         if (result === 'null'){
+            $scope.loaderRunning = false;
             $scope.loginError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
         } else{
             try{
@@ -774,6 +783,7 @@ else{
                 $scope.updateFeed($scope.userCredentials.userName , $scope.userCredentials.follows);
                 
             } else {        //"error message"
+                $scope.loaderRunning = false;
                 $scope.loginError = result;
             }
 
@@ -802,6 +812,7 @@ else{
     }
 
     $scope.notifications = function(){
+        $scope.notificationLoader = true;
         $scope.checkForNotifications();
         $state.go('notifications', {userCreds: $scope.userCredentials});
     }
@@ -829,6 +840,7 @@ else{
         var result = response.result;
 
         if (result === 'null'){
+            $scope.loaderRunning = false;
             $scope.loginError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
             console.log($scope.loginError);
         } else{
@@ -853,12 +865,15 @@ else{
                 }
             }
             sessionStorage.setItem("feedList", JSON.stringify(blogListForFeed));
+            $scope.homeLoader = false;
             if((angular.isDefined(blogListForFeed) && blogListForFeed.length>0) && (!$scope.updateFound || $scope.commentAdded)){
             $scope.blogListForFeed = JSON.parse(sessionStorage.getItem("feedList"));
             $scope.updateFound = false;
             }
             $scope.checkForNotifications();
             }catch (err){
+                $scope.loaderRunning = false;
+                $scope.homeLoader = false;
                 console.log(err);
             }
         }
@@ -889,6 +904,8 @@ else{
         var result = response.result;
 
         if (result === 'null'){
+            $scope.notificationLoader = false;
+            $scope.loaderRunning = false;
             console.log("Sorry, we couldn't get a response from Blockchain. Please try again after some time.");
         } else{
             try{
@@ -897,7 +914,10 @@ else{
                   return new Date(b.date) - new Date(a.date);
                 });
                 sessionStorage.setItem("notifObj", JSON.stringify($scope.notifObj));
+                $scope.notificationLoader = false;
             }catch (err){
+                $scope.notificationLoader = false;
+                $scope.loaderRunning = false;
                 console.log(err);
             }
         }
@@ -938,8 +958,6 @@ else{
                     $scope.profilePage();
                 }
                 $scope.$apply();
-                windowHandle.blur();
-                setTimeout(windowHandle.focus, 0);
             }
             else if(receipt.status==2 && blogFuncCalled>40){
                 blogFuncCalled = 0;
@@ -1002,6 +1020,7 @@ else{
     }
 
 $scope.profilePage =function(){
+    $scope.profileLoader = true;
     $scope.commentSuccess = false;
     $scope.deleteSuccess = false;
     if(!$scope.settingsSuccess){
@@ -1018,6 +1037,7 @@ function userProfile(response){
 
         if (result === 'null'){
             $scope.retrievingProfileError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
+            $scope.profileLoader = false;
         } else{
             try{
                 result = JSON.parse(result);
@@ -1036,6 +1056,7 @@ function userProfile(response){
                 if(($scope.state.current.name!="profile") || ($scope.state.current.name=="profile" && $scope.blogSuccess)){
                 $state.go('profile', {deleteVariables:deleteParams, userCreds: $scope.userCredentials});
                 }
+                $scope.profileLoader = false;
             sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
             if($scope.settingsSuccess){
                     $scope.settings();
@@ -1044,13 +1065,19 @@ function userProfile(response){
             } else {        //"error message"
                 $scope.retrievingProfileError = result;
                 console.log($scope.retrievingProfileError);
+                $scope.profileLoader = false;
             }
 
         }
         $scope.$apply();
 }
 
-$scope.visitUserProfile =function(user, isfollowing){
+$scope.visitUserProfile =function(user, isfollowing, index){
+    if(angular.isDefined(index) && index!=null){
+        $scope.viewLoader = [];
+        $scope.viewedUserIndex = index;
+        $scope.viewLoader[index] = true;
+    }
         if(angular.isDefined(isfollowing)){
         $scope.isfollowing = isfollowing;
         }else{
@@ -1080,6 +1107,9 @@ function visitProfile(response){
 
         if (result === 'null'){
             $scope.retrievingProfileError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
+            if(angular.isDefined($scope.viewLoader) && $scope.viewLoader!=null && angular.isDefined($scope.viewedUserIndex) && $scope.viewedUserIndex!=null){
+            $scope.viewLoader[$scope.viewedUserIndex] = false;
+            }
         } else{
             try{
                 result = JSON.parse(result);
@@ -1091,10 +1121,17 @@ function visitProfile(response){
                 $state.go('otherUsers', {otherUserProfile: result, userCreds: $scope.userCredentials, viewedUser: $scope.viewedUser,
                     commentVariables:$scope.commentVariables, isfollowing:$scope.isfollowing});
         }
+        if(angular.isDefined($scope.viewLoader) && $scope.viewLoader!=null && angular.isDefined($scope.viewedUserIndex) && $scope.viewedUserIndex!=null){
+            $scope.viewLoader[$scope.viewedUserIndex] = false;
+            }
         $scope.otherUserProfile = result;
+        sessionStorage.setItem("otherUserProfile", JSON.stringify($scope.otherUserProfile));
                 
             } else {        //"error message"
                 $scope.retrievingProfileError = result;
+                if(angular.isDefined($scope.viewLoader) && $scope.viewLoader!=null && angular.isDefined($scope.viewedUserIndex) && $scope.viewedUserIndex!=null){
+            $scope.viewLoader[$scope.viewedUserIndex] = false;
+            }
             }
 
         }
@@ -1216,10 +1253,12 @@ function unfollowProcess(response){
 }
 
 $scope.homePage = function(){
+    $scope.homeLoader = true;
     $scope.updateFeed($scope.userCredentials.userName, $scope.userCredentials.follows);
 }
 
     $scope.searchUsers =function(searchTxt){
+        $scope.searchLoader = true;
         if(!angular.isDefined(searchTxt) || searchTxt==''){
         var callArgs = "[\"" + $scope.userCredentials.userName + "\"]";
         }
@@ -1234,14 +1273,17 @@ $scope.homePage = function(){
 function retrieveUserData(response){
     if(response==null){
         $scope.searchUsersError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time."
+        $scope.searchLoader = false;
     }
     else if(response.execute_err!=""){
         $scope.searchUsersError = response.result;
+        $scope.searchLoader = false;
     }
     var result = response.result;
 
         if (result === 'null'){
             $scope.searchUsersError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
+            $scope.searchLoader = false;
         } else{
             try{
                 result = JSON.parse(result);
@@ -1250,6 +1292,7 @@ function retrieveUserData(response){
 
             if (result){      //"return value"
                 $state.go('search', {userList: result, userCreds: $scope.userCredentials});
+                $scope.searchLoader = false;
                 
             }
 
