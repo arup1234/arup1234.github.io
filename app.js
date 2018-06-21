@@ -826,6 +826,7 @@ else{
     $scope.logout = function(){
         var logoutInitiated = confirm('Are you sure you want to sign out?');
         if(logoutInitiated){
+        $scope.$destroy();
         $rootScope = $rootScope.$new(true);
         $scope = $scope.$new(true);
         $scope.$parent = $scope.$parent.$new(true);
@@ -846,6 +847,7 @@ else{
         var result = response.result;
 
         if (result === 'null'){
+            $scope.homeLoader = false;
             $scope.loaderRunning = false;
             $scope.loginError = "Sorry, we couldn't get a response from Blockchain. Please try again after some time.";
             console.log($scope.loginError);
