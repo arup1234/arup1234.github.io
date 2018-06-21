@@ -1010,18 +1010,18 @@ $scope.profilePage =function(){
     $scope.commentSuccess = false;
     if(!$scope.settingsSuccess){
         $scope.settingsPage = false;
+    }
+    if($scope.settingsUserName.trim()==$scope.userCredentials.userName){
+        var callArgs = "[\"" + $scope.userCredentials.userName + "\"]";
     }else{
-        if($scope.settingsUserName.trim()==$scope.userCredentials.userName){
-            var callArgs = "[\"" + $scope.userCredentials.userName + "\"]";
-        }else{
-            var callArgs = "[\"" + $scope.settingsUserName + "\"]";
-            $scope.userCredentials.userName = $scope.settingsUserName.trim();
-            sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
-        }
-    }  
-        nebPay.simulateCall(dappAddress, "0", "getUserProfile", callArgs, { 
-            listener: userProfile
-        });
+        var callArgs = "[\"" + $scope.settingsUserName + "\"]";
+        $scope.userCredentials.userName = $scope.settingsUserName.trim();
+        delete $scope.settingsUserName;
+        sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
+    }
+    nebPay.simulateCall(dappAddress, "0", "getUserProfile", callArgs, { 
+        listener: userProfile
+    });
 }    
 
 function userProfile(response){
