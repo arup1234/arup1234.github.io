@@ -1010,6 +1010,7 @@ $scope.profilePage =function(){
     if(!$scope.settingsSuccess){
         $scope.settingsPage = false;
     }
+    if(angular.isDefined($scope.settingsUserName) && $scope.settingsUserName!=null){
     if($scope.settingsUserName.trim()==$scope.userCredentials.userName){
         var callArgs = "[\"" + $scope.userCredentials.userName + "\"]";
     }else{
@@ -1017,6 +1018,9 @@ $scope.profilePage =function(){
         $scope.userCredentials.userName = $scope.settingsUserName.trim();
         delete $scope.settingsUserName;
         sessionStorage.setItem("userCredentials", JSON.stringify($scope.userCredentials));
+    }
+    }else{
+        var callArgs = "[\"" + $scope.userCredentials.userName + "\"]";
     }
     nebPay.simulateCall(dappAddress, "0", "getUserProfile", callArgs, { 
         listener: userProfile
